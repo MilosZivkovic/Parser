@@ -5,7 +5,29 @@
 
 <mapper namespace="com.ef.mappers.AccessLogMapper">
     <insert id="insertAccessLog" parameterType="com.ef.model.AccessLog">
-        INSERT INTO access_log (accessTime, ipAddress, method, status, client)
-        VALUES (#{logData.accessTime}, #{logData.ipAddress}, #{logData.method}, #{logData.status}, #{logData.client})
+        INSERT INTO access.access_log (accessTime, ipAddress, httpMethod, httpStatus, httpClient)
+        VALUES (#{logData.accessTime}, #{logData.ipAddress}, #{logData.httpMethod}, #{logData.httpStatus}, #{logData.httpClient})
+    </insert>
+
+    <select id="findDDOSAttempts" parameterType="com.ef.model.RestrictData" resultType="com.ef.model.RestrictedIp">
+        SELECT ipAddress, COUNT(*) AS occ
+        FROM access.access_log
+        WHERE (accessTime > #{data.startDate})
+        <if test='data.duration.equals("HOURLY")'>
+            <![CDATA[
+            AND (accessTime < date_add(#{data.startDate}, INTERVAL 1 HOUR))
+            ]]>
+        </if>
+        <if test='data.duration.equals("DAILY")'>
+            <![CDATA[
+              AND (accessTime < date_add(#{data.startDate}, INTERVAL 1 DAY))
+            ]]>
+        </if>
+        GROUP BY ipAddress
+        HAVING occ > #{data.threshold}
+    </select>
+
+    <insert id="restrictIpAddress" parameterType="com.ef.model.RestrictedIp">
+        INSERT INTO access.restricted (ipAddress, restricted, cause) VALUE (#{ip.ipAddress}, #{ip.restricted}, #{ip.cause})
     </insert>
 </mapper>

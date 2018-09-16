@@ -14,9 +14,9 @@ CREATE TABLE IF NOT EXISTS `access`.`access_log` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `accessTime` DATETIME NOT NULL,
   `ipAddress` VARCHAR(45) NOT NULL,
-  `method` VARCHAR(50) NOT NULL,
-  `status` INT NOT NULL,
-  `client` VARCHAR(255) NOT NULL,
+  `httpMethod` VARCHAR(50) NOT NULL,
+  `httpStatus` INT NOT NULL,
+  `httpClient` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `ip_address` (`ipAddress`)
 )

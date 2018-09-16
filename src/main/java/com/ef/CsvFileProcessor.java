@@ -22,15 +22,15 @@ import java.util.stream.Stream;
 @Slf4j
 @Order(1)
 @Component
-public class CsvFileParser implements ApplicationRunner {
+public class CsvFileProcessor implements ApplicationRunner {
 
     @Autowired
     private AccessLogMapper accessLogMapper;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        if (args.containsOption(CliOptions.ACCESS_LOG_OPTION)) {
-            List<String> files = args.getOptionValues(CliOptions.ACCESS_LOG_OPTION);
+        if (args.containsOption(CliProperties.ACCESS_LOG_OPTION)) {
+            List<String> files = args.getOptionValues(CliProperties.ACCESS_LOG_OPTION);
             files.forEach(this::processFile);
         }
     }
@@ -44,7 +44,7 @@ public class CsvFileParser implements ApplicationRunner {
 
         long startTime = System.nanoTime();
         try (Stream<String> lines = Files.lines(Paths.get(filePath))) {
-            lines.forEach(this::processLine);
+            lines.parallel().forEach(this::processLine);
         } catch (IOException e) {
             e.printStackTrace();
         }
