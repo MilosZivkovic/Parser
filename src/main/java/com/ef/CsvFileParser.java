@@ -44,7 +44,7 @@ public class CsvFileParser implements ApplicationRunner {
 
         long startTime = System.nanoTime();
         try (Stream<String> lines = Files.lines(Paths.get(filePath))) {
-            lines.parallel().forEach(this::processLine);
+            lines.forEach(this::processLine);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -56,7 +56,6 @@ public class CsvFileParser implements ApplicationRunner {
         try {
             AccessLog logData = parseAccessLog(line);
             accessLogMapper.insertAccessLog(logData);
-//            log.info(logData.toString());
         } catch (Exception e) {
             log.error("Could not save line: " + line, e);
         }
