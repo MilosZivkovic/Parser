@@ -28,6 +28,6 @@
     </select>
 
     <insert id="restrictIpAddress" parameterType="com.ef.model.RestrictedIp">
-        INSERT INTO access.restricted (ipAddress, restricted, cause) VALUE (#{ip.ipAddress}, #{ip.restricted}, #{ip.cause})
+        REPLACE INTO access.restricted (ipAddress, restricted, cause) VALUE (#{ip.ipAddress}, #{ip.restricted}, #{ip.cause})
     </insert>
 </mapper>
