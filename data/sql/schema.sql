@@ -3,7 +3,7 @@ USE `access`;
 
 CREATE TABLE IF NOT EXISTS `access`.`restricted` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `ipAddress` VARCHAR(45) NOT NULL,
+  `ipAddress` VARCHAR(45) NOT NULL UNIQUE,
   `restricted` BOOLEAN NOT NULL DEFAULT false,
   `cause` VARCHAR(255) NULL,
   PRIMARY KEY (`id`)
