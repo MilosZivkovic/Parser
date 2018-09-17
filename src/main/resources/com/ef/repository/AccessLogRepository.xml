@@ -9,6 +9,14 @@
         VALUES (#{logData.accessTime}, #{logData.ipAddress}, #{logData.httpMethod}, #{logData.httpStatus}, #{logData.httpClient})
     </insert>
 
+    <insert id="insertAccessLogs" parameterType="com.ef.model.AccessLog">
+        INSERT INTO access.access_log (accessTime, ipAddress, httpMethod, httpStatus, httpClient)
+        VALUES
+        <foreach collection="logData" item="log" index="index" open="(" separator="),(" close=")">
+            #{log.accessTime}, #{log.ipAddress}, #{log.httpMethod}, #{log.httpStatus}, #{log.httpClient}
+        </foreach>
+    </insert>
+
     <select id="findRestrictedIps" parameterType="com.ef.model.RestrictData" resultType="com.ef.model.RestrictedIp">
         SELECT ipAddress, COUNT(*) AS occ
         FROM access.access_log
@@ -26,7 +34,7 @@
     <insert id="restrictIpAddresses" parameterType="java.util.List">
         REPLACE INTO access.restricted (ipAddress, restricted, cause)
         VALUES
-        <foreach collection="ips" item="ip" index="index" open="(" close=")">
+        <foreach collection="ips" item="ip" index="index" open="(" separator="),(" close=")">
             #{ip.ipAddress}, #{ip.restricted}, #{ip.cause}
         </foreach>
     </insert>

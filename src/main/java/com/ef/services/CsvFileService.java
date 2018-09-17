@@ -6,11 +6,13 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
 import org.springframework.stereotype.Component;
+import reactor.core.publisher.Flux;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.stream.BaseStream;
 import java.util.stream.Stream;
 
 @Component
@@ -25,7 +27,11 @@ public class CsvFileService {
     public void processFile(String filePath) {
         validateFile(filePath);
         try(Stream<String> lines = Files.lines(Paths.get(filePath))) {
-            lines.forEach(this::processLine);
+            Flux.using(() -> lines, Flux::fromStream, BaseStream::close)
+                .map(this::parseAccessLog)
+                .buffer(100)
+                .doOnNext(accessLogRepository::insertAccessLogs)
+                .subscribe();
         }
         catch (IOException e) {
             throw new RuntimeException("Could not process file: " + filePath, e);
