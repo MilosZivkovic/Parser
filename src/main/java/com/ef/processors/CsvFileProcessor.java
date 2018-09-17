@@ -1,31 +1,29 @@
 package com.ef.processors;
 
-import com.ef.CliProperties;
+import com.ef.Args;
 import com.ef.services.CsvFileService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.ApplicationArguments;
-import org.springframework.boot.ApplicationRunner;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 @Slf4j
 @Order(1)
 @Component
-public class CsvFileProcessor implements ApplicationRunner {
+public class CsvFileProcessor implements CommandLineRunner {
 
     private CsvFileService csvFileService;
 
-    public CsvFileProcessor(CsvFileService csvFileService) {
+    private Args arguments;
+
+    public CsvFileProcessor(CsvFileService csvFileService, Args arguments) {
         this.csvFileService = csvFileService;
+        this.arguments = arguments;
     }
 
     @Override
-    public void run(ApplicationArguments args) throws Exception {
-        if (args.containsOption(CliProperties.ACCESS_LOG_OPTION)) {
-            List<String> files = args.getOptionValues(CliProperties.ACCESS_LOG_OPTION);
-            files.forEach(csvFileService::processFile);
-        }
+    public void run(String... args) throws Exception {
+        String file = arguments.getFilePath();
+        csvFileService.processFile(file);
     }
 }

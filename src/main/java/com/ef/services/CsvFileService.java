@@ -26,14 +26,13 @@ public class CsvFileService {
 
     public void processFile(String filePath) {
         validateFile(filePath);
-        try(Stream<String> lines = Files.lines(Paths.get(filePath))) {
+        try (Stream<String> lines = Files.lines(Paths.get(filePath))) {
             Flux.using(() -> lines, Flux::fromStream, BaseStream::close)
                 .map(this::parseAccessLog)
                 .buffer(100)
                 .doOnNext(accessLogRepository::insertAccessLogs)
                 .subscribe();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException("Could not process file: " + filePath, e);
         }
     }
@@ -55,7 +54,7 @@ public class CsvFileService {
 
     private void validateFile(String filePath) {
         File file = new File(filePath);
-        if(!isValidFile(file)) {
+        if (!isValidFile(file)) {
             throw new IllegalArgumentException("Provided file does not exist or does not have right access privilege");
         }
     }

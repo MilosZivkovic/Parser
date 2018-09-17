@@ -14,6 +14,7 @@ public class RestrictData {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private Integer threshold;
+
     public enum Duration {
         HOURLY, DAILY
     }
