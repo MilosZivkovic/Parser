@@ -4,10 +4,6 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ef.repository.AccessLogRepository">
-    <insert id="insertAccessLog" parameterType="com.ef.model.AccessLog">
-        INSERT INTO access.access_log (accessTime, ipAddress, httpMethod, httpStatus, httpClient)
-        VALUES (#{logData.accessTime}, #{logData.ipAddress}, #{logData.httpMethod}, #{logData.httpStatus}, #{logData.httpClient})
-    </insert>
 
     <insert id="insertAccessLogs" parameterType="com.ef.model.AccessLog">
         INSERT INTO access.access_log (accessTime, ipAddress, httpMethod, httpStatus, httpClient)
@@ -26,10 +22,6 @@
         GROUP BY ipAddress
         HAVING occ > #{data.threshold}
     </select>
-
-    <insert id="restrictIpAddress" parameterType="com.ef.model.RestrictedIp">
-        REPLACE INTO access.restricted (ipAddress, restricted, cause) VALUE (#{ip.ipAddress}, #{ip.restricted}, #{ip.cause})
-    </insert>
 
     <insert id="restrictIpAddresses" parameterType="java.util.List">
         REPLACE INTO access.restricted (ipAddress, restricted, cause)

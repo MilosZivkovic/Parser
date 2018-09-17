@@ -38,11 +38,6 @@ public class CsvFileService {
         }
     }
 
-    public void processLine(String line) {
-        AccessLog logData = parseAccessLog(line);
-        accessLogRepository.insertAccessLog(logData);
-    }
-
     private AccessLog parseAccessLog(String line) {
         CsvMapper mapper = new CsvMapper();
         mapper.findAndRegisterModules();
