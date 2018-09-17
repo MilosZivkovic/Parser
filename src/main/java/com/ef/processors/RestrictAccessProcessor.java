@@ -43,9 +43,7 @@ public class RestrictAccessProcessor implements ApplicationRunner {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern(CliProperties.OPTION_DATE_FORMAT);
             LocalDateTime startDate = LocalDateTime.parse(startDateValue, formatter);
-
             RestrictData.Duration duration = RestrictData.Duration.valueOf(durationValue.toUpperCase());
-
             Integer threshold = Integer.valueOf(thresholdValue);
 
             List<RestrictedIp> restrictedIps = restrictAccessService.restrictIpAddresses(startDate, duration, threshold);
