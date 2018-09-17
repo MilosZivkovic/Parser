@@ -14,7 +14,7 @@ public interface AccessLogRepository {
 
     void insertAccessLog(@Param("logData") AccessLog logData);
 
-    List<RestrictedIp> findDDOSAttempts(@Param("data") RestrictData restrictData);
+    List<RestrictedIp> findRestrictedIps(@Param("data") RestrictData restrictData);
 
     void restrictIpAddress(@Param("ip") AccessIp accessIp);
 

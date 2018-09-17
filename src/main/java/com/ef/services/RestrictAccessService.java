@@ -21,12 +21,24 @@ public class RestrictAccessService {
     }
 
     public List<RestrictedIp> restrictIpAddresses(LocalDateTime startDate, Duration duration, Integer threshold) {
-        RestrictData restrictData = new RestrictData(startDate, duration, threshold);
-        List<RestrictedIp> restrictedIps = accessLogRepository.findDDOSAttempts(restrictData);
+        LocalDateTime endDate = calculateEndDate(startDate, duration);
+        RestrictData restrictData = new RestrictData(startDate, endDate, threshold);
+        List<RestrictedIp> restrictedIps = accessLogRepository.findRestrictedIps(restrictData);
         accessLogRepository.restrictIpAddresses(restrictedIps.stream()
             .map(restrictedIp -> new AccessIp(restrictedIp.getIpAddress(), true, "Suspected DDOS attack"))
             .collect(Collectors.toList()));
         return restrictedIps;
+    }
+
+    private LocalDateTime calculateEndDate(LocalDateTime startDate, Duration duration) {
+        switch (duration) {
+            case DAILY:
+                return startDate.plusDays(1);
+            case HOURLY:
+                return startDate.plusHours(1);
+            default:
+                throw new IllegalArgumentException("Invalid duration provided: " + duration);
+        }
     }
 
 }

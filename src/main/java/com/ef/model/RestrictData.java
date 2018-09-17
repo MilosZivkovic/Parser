@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 public class RestrictData {
 
     private LocalDateTime startDate;
-    private Duration duration;
+    private LocalDateTime endDate;
     private Integer threshold;
     public enum Duration {
         HOURLY, DAILY

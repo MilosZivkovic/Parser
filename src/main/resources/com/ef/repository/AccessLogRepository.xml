@@ -9,20 +9,12 @@
         VALUES (#{logData.accessTime}, #{logData.ipAddress}, #{logData.httpMethod}, #{logData.httpStatus}, #{logData.httpClient})
     </insert>
 
-    <select id="findDDOSAttempts" parameterType="com.ef.model.RestrictData" resultType="com.ef.model.RestrictedIp">
+    <select id="findRestrictedIps" parameterType="com.ef.model.RestrictData" resultType="com.ef.model.RestrictedIp">
         SELECT ipAddress, COUNT(*) AS occ
         FROM access.access_log
-        WHERE (accessTime > #{data.startDate})
-        <if test='data.duration.equals("HOURLY")'>
-            <![CDATA[
-            AND (accessTime < date_add(#{data.startDate}, INTERVAL 1 HOUR))
-            ]]>
-        </if>
-        <if test='data.duration.equals("DAILY")'>
-            <![CDATA[
-              AND (accessTime < date_add(#{data.startDate}, INTERVAL 1 DAY))
-            ]]>
-        </if>
+         <![CDATA[
+        WHERE (accessTime > #{data.startDate}) AND accessTime < #{data.endDate}
+        ]]>
         GROUP BY ipAddress
         HAVING occ > #{data.threshold}
     </select>
@@ -34,5 +26,8 @@
     <insert id="restrictIpAddresses" parameterType="java.util.List">
         REPLACE INTO access.restricted (ipAddress, restricted, cause)
         VALUES
+        <foreach collection="ips" item="ip" index="index" open="(" close=")">
+            #{ip.ipAddress}, #{ip.restricted}, #{ip.cause}
+        </foreach>
     </insert>
 </mapper>
