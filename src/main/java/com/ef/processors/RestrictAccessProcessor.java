@@ -1,6 +1,6 @@
 package com.ef.processors;
 
-import com.ef.Args;
+import com.ef.CliArguments;
 import com.ef.model.RestrictedIp;
 import com.ef.services.RestrictAccessService;
 import lombok.extern.slf4j.Slf4j;
@@ -17,9 +17,9 @@ public class RestrictAccessProcessor implements CommandLineRunner {
 
     private RestrictAccessService restrictAccessService;
 
-    private Args arguments;
+    private CliArguments arguments;
 
-    public RestrictAccessProcessor(RestrictAccessService restrictAccessService, Args arguments) {
+    public RestrictAccessProcessor(RestrictAccessService restrictAccessService, CliArguments arguments) {
         this.restrictAccessService = restrictAccessService;
         this.arguments = arguments;
     }

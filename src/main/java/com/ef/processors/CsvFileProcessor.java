@@ -1,6 +1,6 @@
 package com.ef.processors;
 
-import com.ef.Args;
+import com.ef.CliArguments;
 import com.ef.services.CsvFileService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
@@ -14,9 +14,9 @@ public class CsvFileProcessor implements CommandLineRunner {
 
     private CsvFileService csvFileService;
 
-    private Args arguments;
+    private CliArguments arguments;
 
-    public CsvFileProcessor(CsvFileService csvFileService, Args arguments) {
+    public CsvFileProcessor(CsvFileService csvFileService, CliArguments arguments) {
         this.csvFileService = csvFileService;
         this.arguments = arguments;
     }
