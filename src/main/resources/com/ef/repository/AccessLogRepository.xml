@@ -6,7 +6,7 @@
 <mapper namespace="com.ef.repository.AccessLogRepository">
 
     <insert id="insertAccessLogs" parameterType="com.ef.model.AccessLog">
-        INSERT INTO access.access_log (accessTime, ipAddress, httpMethod, httpStatus, httpClient)
+        INSERT INTO access_log (accessTime, ipAddress, httpMethod, httpStatus, httpClient)
         VALUES
         <foreach collection="logData" item="log" index="index" open="(" separator="),(" close=")">
             #{log.accessTime}, #{log.ipAddress}, #{log.httpMethod}, #{log.httpStatus}, #{log.httpClient}
@@ -15,7 +15,7 @@
 
     <select id="findRestrictedIps" parameterType="com.ef.model.RestrictData" resultType="com.ef.model.RestrictedIp">
         SELECT ipAddress, COUNT(*) AS occ
-        FROM access.access_log
+        FROM access_log
          <![CDATA[
         WHERE (accessTime > #{data.startDate}) AND accessTime < #{data.endDate}
         ]]>
@@ -24,10 +24,19 @@
     </select>
 
     <insert id="restrictIpAddresses" parameterType="java.util.List">
-        REPLACE INTO access.restricted (ipAddress, restricted, cause)
+        REPLACE INTO restricted (ipAddress, restricted, cause)
         VALUES
         <foreach collection="ips" item="ip" index="index" open="(" separator="),(" close=")">
             #{ip.ipAddress}, #{ip.restricted}, #{ip.cause}
         </foreach>
     </insert>
+
+    <select id="getAccessLog" parameterType="java.lang.String" resultType="com.ef.model.AccessLog">
+        SELECT accessTime, ipAddress, httpMethod, httpStatus, httpClient
+        FROM access_log
+        WHERE ipAddress IN
+        <foreach collection="ipAddresses" item="ip" index="index" open="(" separator="," close=")">
+            #{ip}
+        </foreach>
+    </select>
 </mapper>

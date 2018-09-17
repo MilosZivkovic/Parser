@@ -1,18 +1,14 @@
 package com.ef.processors;
 
-import com.ef.CliArguments;
 import com.ef.model.RestrictedIp;
+import com.ef.properties.CliArguments;
 import com.ef.services.RestrictAccessService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component
 @Slf4j
-@Order(2)
 public class RestrictAccessProcessor implements CommandLineRunner {
 
     private RestrictAccessService restrictAccessService;
