@@ -1,8 +1,8 @@
 package com.ef.processors;
 
 import com.ef.CliProperties;
-import com.ef.mappers.AccessLogMapper;
 import com.ef.model.AccessLog;
+import com.ef.repository.AccessLogRepository;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
@@ -26,7 +26,7 @@ import java.util.stream.Stream;
 public class CsvFileProcessor implements ApplicationRunner {
 
     @Autowired
-    private AccessLogMapper accessLogMapper;
+    private AccessLogRepository accessLogRepository;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -56,7 +56,7 @@ public class CsvFileProcessor implements ApplicationRunner {
     private void processLine(String line) {
         try {
             AccessLog logData = parseAccessLog(line);
-            accessLogMapper.insertAccessLog(logData);
+            accessLogRepository.insertAccessLog(logData);
         } catch (Exception e) {
             log.error("Could not save line: " + line, e);
         }

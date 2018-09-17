@@ -8,7 +8,7 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-@JsonPropertyOrder({"accessTime", "ipAddress", "httpMethod", "httpStatus", "httpClient"})
+@JsonPropertyOrder({ "accessTime", "ipAddress", "httpMethod", "httpStatus", "httpClient" })
 public class AccessLog {
 
     @JsonFormat(pattern = CliProperties.LOG_DATE_FORMAT)

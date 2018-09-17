@@ -1,13 +1,10 @@
 package com.ef.processors;
 
 import com.ef.CliProperties;
-import com.ef.mappers.AccessLogMapper;
-import com.ef.model.AccessIp;
 import com.ef.model.RestrictData;
 import com.ef.model.RestrictedIp;
 import com.ef.services.RestrictAccessService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.annotation.Order;
@@ -50,11 +47,9 @@ public class RestrictAccessProcessor implements ApplicationRunner {
             restrictedIps.forEach(restrictedIp -> log.info("Found possible DDOS attempt, ip address: " + restrictedIp.getIpAddress()));
         } catch (DateTimeParseException e) {
             log.error("Invalid startDate format: " + startDateValue + ". please provide date in format " + CliProperties.OPTION_DATE_FORMAT);
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             log.error("Invalid threshold value: " + thresholdValue + ". Please provide valid integer value.");
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             log.error("Invalid value for duration argument: " + durationValue + ". Please ");
         }
     }

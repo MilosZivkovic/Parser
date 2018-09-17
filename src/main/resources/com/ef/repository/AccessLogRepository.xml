@@ -3,7 +3,7 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.ef.mappers.AccessLogMapper">
+<mapper namespace="com.ef.repository.AccessLogRepository">
     <insert id="insertAccessLog" parameterType="com.ef.model.AccessLog">
         INSERT INTO access.access_log (accessTime, ipAddress, httpMethod, httpStatus, httpClient)
         VALUES (#{logData.accessTime}, #{logData.ipAddress}, #{logData.httpMethod}, #{logData.httpStatus}, #{logData.httpClient})

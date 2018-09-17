@@ -1,4 +1,4 @@
-package com.ef.mappers;
+package com.ef.repository;
 
 import com.ef.model.AccessIp;
 import com.ef.model.AccessLog;
@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 @Mapper
-public interface AccessLogMapper {
+public interface AccessLogRepository {
 
     void insertAccessLog(@Param("logData") AccessLog logData);
 

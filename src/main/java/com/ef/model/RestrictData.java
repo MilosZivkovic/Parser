@@ -11,11 +11,10 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class RestrictData {
 
-    public enum Duration {
-        HOURLY, DAILY
-    }
-
     private LocalDateTime startDate;
     private Duration duration;
     private Integer threshold;
+    public enum Duration {
+        HOURLY, DAILY
+    }
 }
