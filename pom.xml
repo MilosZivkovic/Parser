@@ -14,6 +14,8 @@
         <version>2.0.4.RELEASE</version>
     </parent>
 
+    <packaging>jar</packaging>
+
     <properties>
         <jackson.version>2.9.6</jackson.version>
     </properties>
