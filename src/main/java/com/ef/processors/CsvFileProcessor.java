@@ -7,6 +7,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
+import java.util.concurrent.TimeUnit;
+
 @Slf4j
 @Order(1)
 @Component
@@ -23,7 +25,12 @@ public class CsvFileProcessor implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        String file = arguments.getFilePath();
-        csvFileService.processFile(file);
+        log.info("Processing File: " + arguments.getFilePath());
+        long startTime = System.nanoTime();
+
+        csvFileService.processFile(arguments.getFilePath());
+
+        long seconds = TimeUnit.NANOSECONDS.toSeconds(System.nanoTime() - startTime);
+        log.info("Finished processing file in: " + seconds + " seconds");
     }
 }

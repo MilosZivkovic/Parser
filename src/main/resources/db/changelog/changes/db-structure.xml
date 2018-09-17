@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+
+    <changeSet id="createAccessLogTable" author="Milos Zivkovic">
+        <createTable tableName="access_log">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" />
+            </column>
+            <column name="accessTime" type="DATETIME">
+                <constraints nullable="false" />
+            </column>
+            <column name="ipAddress" type="VARCHAR(45)">
+                <constraints nullable="false" />
+            </column>
+            <column name="httpMethod" type="VARCHAR(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="httpStatus" type="INT">
+                <constraints nullable="false" />
+            </column>
+            <column name="httpClient" type="VARCHAR(255)">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="createIpAddressIndex" author="Milos Zivkovic">
+        <createIndex tableName="access_log"
+                     indexName="ip_address_index"
+                     unique="false">
+            <column name="ipAddress" type="VARCHAR(45)" />
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="createRestrictedTable" author="Milos Zivkovic">
+        <createTable tableName="restricted">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" />
+            </column>
+            <column name="ipAddress" type="VARCHAR(45)">
+                <constraints nullable="false" />
+            </column>
+            <column name="restricted" type="BOOLEAN" defaultValue="true">
+                <constraints nullable="false" />
+            </column>
+            <column name="cause" type="VARCHAR(255)">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="createRestrictedIpAddressIndex" author="Milos Zivkovic">
+        <createIndex tableName="restricted"
+                     indexName="restricted_ip_address_index"
+                     unique="true">
+            <column name="ipAddress" />
+        </createIndex>
+    </changeSet>
+
+</databaseChangeLog>

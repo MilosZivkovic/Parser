@@ -2,7 +2,9 @@ spring:
   application:
     name: Parser
   datasource:
-    username: root
-    password: root
-    url: jdbc:mysql://127.0.0.1:3306/access?allowPublicKeyRetrieval=true&useSSL=false
+    username: access
+    password: access123
+    url: jdbc:mysql://127.0.0.1:3306/access??createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&useSSL=false
     driver-class-name: com.mysql.jdbc.Driver
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.xml
