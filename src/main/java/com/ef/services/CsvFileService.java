@@ -5,6 +5,7 @@ import com.ef.repository.AccessLogRepository;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 
@@ -15,7 +16,7 @@ import java.nio.file.Paths;
 import java.util.stream.BaseStream;
 import java.util.stream.Stream;
 
-@Component
+@Slf4j
 public class CsvFileService {
 
     private AccessLogRepository accessLogRepository;
@@ -25,7 +26,10 @@ public class CsvFileService {
     }
 
     public void processFile(String filePath) {
-        validateFile(filePath);
+        if(!isValidFile(filePath)) {
+            return;
+        }
+
         try (Stream<String> lines = Files.lines(Paths.get(filePath))) {
             Flux.using(() -> lines, Flux::fromStream, BaseStream::close)
                 .map(this::parseAccessLog)
@@ -52,14 +56,8 @@ public class CsvFileService {
         }
     }
 
-    private void validateFile(String filePath) {
+    private boolean isValidFile(String filePath) {
         File file = new File(filePath);
-        if (!isValidFile(file)) {
-            throw new IllegalArgumentException("Provided file does not exist or does not have right access privilege");
-        }
-    }
-
-    private boolean isValidFile(File file) {
         return file.exists() && file.isFile() && file.canRead();
     }
 

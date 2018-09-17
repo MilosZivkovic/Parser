@@ -21,10 +21,17 @@ public class CsvFileProcessor implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        log.info("Processing File: " + arguments.getFilePath());
+        String filePath = arguments.getFilePath();
+        if (filePath == null) {
+            log.info("Skipping file processing");
+            return;
+        }
+        else {
+            log.info("Processing File: " + filePath);
+        }
         long startTime = System.nanoTime();
 
-        csvFileService.processFile(arguments.getFilePath());
+        csvFileService.processFile(filePath);
 
         long seconds = TimeUnit.NANOSECONDS.toSeconds(System.nanoTime() - startTime);
         log.info("Finished processing file in: " + seconds + " seconds");

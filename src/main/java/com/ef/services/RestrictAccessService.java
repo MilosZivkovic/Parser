@@ -5,13 +5,11 @@ import com.ef.model.RestrictData;
 import com.ef.model.RestrictData.Duration;
 import com.ef.model.RestrictedIp;
 import com.ef.repository.AccessLogRepository;
-import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component
 public class RestrictAccessService {
 
     private AccessLogRepository accessLogRepository;
