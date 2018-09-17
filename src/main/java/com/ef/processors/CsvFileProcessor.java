@@ -1,5 +1,6 @@
-package com.ef;
+package com.ef.processors;
 
+import com.ef.CliProperties;
 import com.ef.mappers.AccessLogMapper;
 import com.ef.model.AccessLog;
 import com.fasterxml.jackson.databind.SerializationFeature;

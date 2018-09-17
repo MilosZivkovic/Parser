@@ -30,4 +30,9 @@
     <insert id="restrictIpAddress" parameterType="com.ef.model.RestrictedIp">
         REPLACE INTO access.restricted (ipAddress, restricted, cause) VALUE (#{ip.ipAddress}, #{ip.restricted}, #{ip.cause})
     </insert>
+
+    <insert id="restrictIpAddresses" parameterType="java.util.List">
+        REPLACE INTO access.restricted (ipAddress, restricted, cause)
+        VALUES
+    </insert>
 </mapper>

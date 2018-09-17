@@ -17,4 +17,6 @@ public interface AccessLogMapper {
     List<RestrictedIp> findDDOSAttempts(@Param("data") RestrictData restrictData);
 
     void restrictIpAddress(@Param("ip") AccessIp accessIp);
+
+    void restrictIpAddresses(@Param("ips") List<AccessIp> accessIps);
 }
