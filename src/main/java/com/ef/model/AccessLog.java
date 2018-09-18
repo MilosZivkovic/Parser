@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @JsonPropertyOrder({ "accessTime", "ipAddress", "httpMethod", "httpStatus", "httpClient" })
 public class AccessLog {
 
-    @JsonFormat(pattern = CliProperties.LOG_DATE_FORMAT)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS")
     private LocalDateTime accessTime;
     private String ipAddress;
     private String httpMethod;

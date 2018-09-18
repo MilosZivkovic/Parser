@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 public class RestrictAccessService {
 
-    private AccessLogRepository accessLogRepository;
+    private final AccessLogRepository accessLogRepository;
 
     public RestrictAccessService(AccessLogRepository accessLogRepository) {
         this.accessLogRepository = accessLogRepository;

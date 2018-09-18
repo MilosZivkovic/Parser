@@ -7,6 +7,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,8 +22,8 @@ public class CsvFileServiceTest extends AbstractApplicationTest {
 
     @Test
     public void processFileTest() {
-        String path = getResource(REQUESTS_LOG_FILE);
-        csvFileService.processFile(path);
+        Path file = Paths.get(getResource(REQUESTS_LOG_FILE));
+        csvFileService.processFile(file);
         List<String> ips = getInsertedIpAddresses();
         List<AccessLog> accessLogs = accessLogRepository.getAccessLog(ips);
         Assert.assertTrue(accessLogs.stream()
@@ -30,9 +32,4 @@ public class CsvFileServiceTest extends AbstractApplicationTest {
             .containsAll(ips));
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void fileNotFoundTest() {
-        String fakePath = "data/fake.log";
-        csvFileService.processFile(fakePath);
-    }
 }

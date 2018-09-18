@@ -1,4 +1,4 @@
-package com.ef.converters;
+package com.ef.config.cli.converters;
 
 import com.beust.jcommander.IStringConverter;
 import com.ef.properties.CliProperties;
@@ -10,7 +10,7 @@ public class OptionLocalDateTimeConverter implements IStringConverter<LocalDateT
 
     @Override
     public LocalDateTime convert(String s) {
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(CliProperties.OPTION_DATE_FORMAT);
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd.HH:mm:ss");
         return LocalDateTime.parse(s, dateTimeFormatter);
     }
 }

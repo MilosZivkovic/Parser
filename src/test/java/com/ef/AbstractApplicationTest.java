@@ -2,7 +2,6 @@ package com.ef;
 
 import com.ef.config.ApplicationConfiguration;
 import com.ef.services.CsvFileService;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
@@ -17,6 +16,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -44,9 +45,9 @@ public abstract class AbstractApplicationTest {
     private void testResourceFileExists(String fileName) {
         String path = getResource(fileName);
         File file = new File(path);
-        Assert.assertTrue(file.exists());
-        Assert.assertTrue(file.canRead());
-        Assert.assertTrue(file.isFile());
+        assertTrue(file.exists());
+        assertTrue(file.canRead());
+        assertTrue(file.isFile());
     }
 
     protected String getResource(String resourceName) {

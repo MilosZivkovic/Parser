@@ -40,7 +40,7 @@ public class ApplicationConfiguration {
     }
 
     @Bean
-    public AccessLogRepository accessLogRepository(SqlSessionFactory factory) throws Exception {
+    public AccessLogRepository accessLogRepository(SqlSessionFactory factory) {
         factory.getConfiguration().addMapper(AccessLogRepository.class);
         SqlSessionTemplate sessionTemplate = new SqlSessionTemplate(factory);
         return sessionTemplate.getMapper(AccessLogRepository.class);

@@ -1,4 +1,4 @@
-package com.ef.converters;
+package com.ef.config.cli.converters;
 
 import com.beust.jcommander.IStringConverter;
 import com.ef.model.RestrictData;

@@ -11,6 +11,7 @@ import reactor.core.publisher.Flux;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.stream.BaseStream;
 import java.util.stream.Stream;
@@ -18,25 +19,23 @@ import java.util.stream.Stream;
 @Slf4j
 public class CsvFileService {
 
-    private AccessLogRepository accessLogRepository;
+    private static final int MAX_SIZE = 1_000;
+    private final AccessLogRepository accessLogRepository;
 
     public CsvFileService(AccessLogRepository accessLogRepository) {
         this.accessLogRepository = accessLogRepository;
     }
 
-    public void processFile(String filePath) {
-        if (!isValidFile(filePath)) {
-            throw new IllegalArgumentException("Could not process file: " + filePath);
-        }
+    public void processFile(Path file) {
 
-        try (Stream<String> lines = Files.lines(Paths.get(filePath))) {
+        try (Stream<String> lines = Files.lines(file)) {
             Flux.using(() -> lines, Flux::fromStream, BaseStream::close)
                 .map(this::parseAccessLog)
-                .buffer(100)
+                .buffer(MAX_SIZE)
                 .doOnNext(accessLogRepository::insertAccessLogs)
                 .subscribe();
         } catch (IOException e) {
-            throw new RuntimeException("Could not process file: " + filePath, e);
+            throw new RuntimeException("Could not process file: " + file, e);
         }
     }
 
@@ -54,10 +53,4 @@ public class CsvFileService {
             throw new RuntimeException("Invalid log line: " + e.getMessage(), e);
         }
     }
-
-    private boolean isValidFile(String filePath) {
-        File file = new File(filePath);
-        return file.exists() && file.isFile() && file.canRead();
-    }
-
 }
