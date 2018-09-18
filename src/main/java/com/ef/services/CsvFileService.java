@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 
 import java.io.File;
@@ -26,7 +25,7 @@ public class CsvFileService {
     }
 
     public void processFile(String filePath) {
-        if(!isValidFile(filePath)) {
+        if (!isValidFile(filePath)) {
             throw new IllegalArgumentException("Could not process file: " + filePath);
         }
 

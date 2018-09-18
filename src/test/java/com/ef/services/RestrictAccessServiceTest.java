@@ -64,7 +64,8 @@ public class RestrictAccessServiceTest extends AbstractApplicationTest {
         testRestrictedIpAddresses("192.168.11.231", startDate, duration, threshold);
     }
 
-    private void testRestrictedIpAddresses(String expectedIpAddress, LocalDateTime startDate, RestrictData.Duration duration, int threshold) {
+    private void testRestrictedIpAddresses(String expectedIpAddress, LocalDateTime startDate, RestrictData.Duration duration,
+                                           int threshold) {
         List<String> restrictedIps = restrictAccessService.restrictIpAddresses(startDate, duration, threshold);
         assertTrue(restrictedIps.contains(expectedIpAddress));
     }

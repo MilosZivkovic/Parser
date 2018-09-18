@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <databaseChangeLog
-    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
 
 
     <changeSet id="createAccessLogTable" author="Milos Zivkovic">
         <createTable tableName="access_log">
             <column name="id" type="INT" autoIncrement="true">
-                <constraints nullable="false" primaryKey="true" />
+                <constraints nullable="false" primaryKey="true"/>
             </column>
             <column name="accessTime" type="DATETIME">
-                <constraints nullable="false" />
+                <constraints nullable="false"/>
             </column>
             <column name="ipAddress" type="VARCHAR(45)">
-                <constraints nullable="false" />
+                <constraints nullable="false"/>
             </column>
             <column name="httpMethod" type="VARCHAR(50)">
-                <constraints nullable="false" />
+                <constraints nullable="false"/>
             </column>
             <column name="httpStatus" type="INT">
-                <constraints nullable="false" />
+                <constraints nullable="false"/>
             </column>
             <column name="httpClient" type="VARCHAR(255)">
-                <constraints nullable="false" />
+                <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>
@@ -32,23 +32,23 @@
         <createIndex tableName="access_log"
                      indexName="ip_address_index"
                      unique="false">
-            <column name="ipAddress" type="VARCHAR(45)" />
+            <column name="ipAddress" type="VARCHAR(45)"/>
         </createIndex>
     </changeSet>
 
     <changeSet id="createRestrictedTable" author="Milos Zivkovic">
         <createTable tableName="access_restricted">
             <column name="id" type="INT" autoIncrement="true">
-                <constraints nullable="false" primaryKey="true" />
+                <constraints nullable="false" primaryKey="true"/>
             </column>
             <column name="ipAddress" type="VARCHAR(45)">
-                <constraints nullable="false" />
+                <constraints nullable="false"/>
             </column>
             <column name="restricted" type="BOOLEAN" defaultValue="true">
-                <constraints nullable="false" />
+                <constraints nullable="false"/>
             </column>
             <column name="cause" type="VARCHAR(255)">
-                <constraints nullable="false" />
+                <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>
@@ -57,7 +57,7 @@
         <createIndex tableName="access_restricted"
                      indexName="restricted_ip_address_index"
                      unique="true">
-            <column name="ipAddress" />
+            <column name="ipAddress"/>
         </createIndex>
     </changeSet>
 

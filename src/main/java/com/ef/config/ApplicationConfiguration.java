@@ -1,13 +1,12 @@
 package com.ef.config;
 
-import com.beust.jcommander.JCommander;
 import com.ef.processors.CsvFileProcessor;
 import com.ef.processors.RestrictAccessProcessor;
-import com.ef.properties.CliArguments;
 import com.ef.repository.AccessLogRepository;
 import com.ef.services.CsvFileService;
 import com.ef.services.RestrictAccessService;
-import org.springframework.boot.ApplicationArguments;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -38,5 +37,12 @@ public class ApplicationConfiguration {
     @Bean
     public RestrictAccessService restrictAccessService(AccessLogRepository accessLogRepository) {
         return new RestrictAccessService(accessLogRepository);
+    }
+
+    @Bean
+    public AccessLogRepository accessLogRepository(SqlSessionFactory factory) throws Exception {
+        factory.getConfiguration().addMapper(AccessLogRepository.class);
+        SqlSessionTemplate sessionTemplate = new SqlSessionTemplate(factory);
+        return sessionTemplate.getMapper(AccessLogRepository.class);
     }
 }

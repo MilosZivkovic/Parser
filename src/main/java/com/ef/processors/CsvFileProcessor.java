@@ -25,8 +25,7 @@ public class CsvFileProcessor implements CommandLineRunner {
         if (filePath == null) {
             log.info("Skipping file processing");
             return;
-        }
-        else {
+        } else {
             log.info("Processing File: " + filePath);
         }
 
@@ -35,8 +34,7 @@ public class CsvFileProcessor implements CommandLineRunner {
             csvFileService.processFile(filePath);
             long seconds = TimeUnit.NANOSECONDS.toSeconds(System.nanoTime() - startTime);
             log.info("Finished processing file in: " + seconds + " seconds");
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             log.error("Could not process file: " + filePath);
         }
     }
