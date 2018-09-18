@@ -65,13 +65,13 @@ Options are key value pairs separated by space:
 Example without accesslog:
 
 ```
-java -jar target/parser.jar -startDate=2017-01-01.00:00:00 --duration=daily --threshold=500
+java -jar target/parser.jar --startDate=2017-01-01.00:00:00 --duration=daily --threshold=500
 ```
 
 Example with accesslog:
 
 ```
-java -jar target/parser.jar -startDate=2017-01-01.15:00:00 --duration=hourly --threshold=200 -accesslog=data/access.log
+java -jar target/parser.jar --startDate=2017-01-01.15:00:00 --duration=hourly --threshold=200 --accesslog=data/access.log
 ```
 
 *note: accesslog will be processed first in order to populate the database for search*
@@ -79,7 +79,7 @@ java -jar target/parser.jar -startDate=2017-01-01.15:00:00 --duration=hourly --t
 Example with -cp parameter:
 
 ```
-java -cp target/parser.jar com.ef.Parser -startDate=2017-01-01.00:00:00 --duration=daily --threshold=200 -accesslog=data/access.log
+java -cp target/parser.jar com.ef.Parser --startDate=2017-01-01.00:00:00 --duration=daily --threshold=200 --accesslog=data/access.log
 ```
 
 ## Util
