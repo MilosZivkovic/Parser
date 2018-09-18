@@ -19,14 +19,14 @@ public class ApplicationConfiguration {
     @Bean
     @Profile("!test")
     @Order(1)
-    public CsvFileProcessor csvFileProcessor(CsvFileService csvFileService, CliArguments cliArguments) {
+    public CsvFileProcessor csvFileProcessor(CsvFileService csvFileService) {
         return new CsvFileProcessor(csvFileService);
     }
 
     @Bean
     @Profile("!test")
     @Order(2)
-    public RestrictAccessProcessor restrictAccessProcessor(RestrictAccessService restrictAccessService, CliArguments cliArguments) {
+    public RestrictAccessProcessor restrictAccessProcessor(RestrictAccessService restrictAccessService) {
         return new RestrictAccessProcessor(restrictAccessService);
     }
 
