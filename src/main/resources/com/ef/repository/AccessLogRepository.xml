@@ -13,14 +13,14 @@
         </foreach>
     </insert>
 
-    <select id="findRestrictedIps" parameterType="com.ef.model.RestrictData" resultType="com.ef.model.RestrictedIp">
-        SELECT ipAddress, COUNT(*) AS occ
+    <select id="findRestrictedIps" parameterType="com.ef.model.RestrictData" resultType="java.lang.String">
+        SELECT ipAddress
         FROM access_log
          <![CDATA[
         WHERE (accessTime > #{data.startDate}) AND accessTime < #{data.endDate}
         ]]>
         GROUP BY ipAddress
-        HAVING occ > #{data.threshold}
+        HAVING COUNT(*) > #{data.threshold}
     </select>
 
     <insert id="restrictIpAddresses" parameterType="com.ef.model.AccessIp">
