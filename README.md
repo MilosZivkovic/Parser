@@ -76,6 +76,13 @@ java -jar target/parser.jar -startDate=2017-01-01.15:00:00 --duration=hourly --t
 
 *note: accesslog will be processed first in order to populate the database for search*
 
+## Util
+Data folder contains utility files that can help with app development:
+
+ - **access.log** - example log file that has proper format required by the app
+ - **docker-database.sh** - executable shell script that will bootstrap mysql:8.0 server with proper database and database access
+ - **test-instructions.txt** - original instructions for the project
+
 ## Technologies
  
  - Spring Boot 2 - dependency injection and bootstrapping framework
@@ -85,3 +92,10 @@ java -jar target/parser.jar -startDate=2017-01-01.15:00:00 --duration=hourly --t
  - JCommander - for parsing cli arguments
 
 ## About 
+
+My name is Milos Zivkovic. I have been working as a java software developer for 2.5 years. This is a sample project with 
+the intention of demonstrating my java proficiency. You can find me on following links:
+
+ - Linkedin: https://www.linkedin.com/in/zivkovicmilos/
+ - Github: https://github.com/MilosZivkovic
+ - Email: developer.milos.zivkovic@gmail.com
