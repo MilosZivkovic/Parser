@@ -79,7 +79,7 @@ java -jar target/parser.jar -startDate=2017-01-01.15:00:00 --duration=hourly --t
 Example with -cp parameter:
 
 ```
-java -cp target/parser.jar -startDate=2017-01-01.00:00:00 --duration=daily --threshold=200 -accesslog=data/access.log
+java -cp target/parser.jar com.ef.Parser -startDate=2017-01-01.00:00:00 --duration=daily --threshold=200 -accesslog=data/access.log
 ```
 
 ## Util
