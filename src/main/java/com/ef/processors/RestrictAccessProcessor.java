@@ -23,6 +23,7 @@ public class RestrictAccessProcessor implements CommandLineRunner {
         JCommander.newBuilder().addObject(arguments).build().parse(args);
         List<String> restrictedIps = restrictAccessService
             .restrictIpAddresses(arguments.getStartDate(), arguments.getDuration(), arguments.getThreshold());
-        restrictedIps.forEach(restrictedIp -> log.info("Found possible DDOS attempt, ip address: " + restrictedIp));
+        log.info("Found possible DDOS attempts: ");
+        restrictedIps.forEach(restrictedIp -> log.info("ip address: " + restrictedIp));
     }
 }
