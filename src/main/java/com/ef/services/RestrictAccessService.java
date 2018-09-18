@@ -7,6 +7,7 @@ import com.ef.model.RestrictedIp;
 import com.ef.repository.AccessLogRepository;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,6 +23,10 @@ public class RestrictAccessService {
         LocalDateTime endDate = calculateEndDate(startDate, duration);
         RestrictData restrictData = new RestrictData(startDate, endDate, threshold);
         List<RestrictedIp> restrictedIps = accessLogRepository.findRestrictedIps(restrictData);
+        if (restrictedIps.isEmpty()) {
+            return Collections.emptyList();
+        }
+
         accessLogRepository.restrictIpAddresses(restrictedIps.stream()
             .map(restrictedIp -> new AccessIp(restrictedIp.getIpAddress(), true, "Suspected DDOS attack"))
             .collect(Collectors.toList()));

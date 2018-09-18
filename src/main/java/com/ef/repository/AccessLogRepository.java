@@ -16,7 +16,7 @@ public interface AccessLogRepository {
 
     List<RestrictedIp> findRestrictedIps(@Param("data") RestrictData restrictData);
 
-    void restrictIpAddresses(@Param("ips") List<AccessIp> accessIps);
+    void restrictIpAddresses(@Param("accessIps") List<AccessIp> accessIps);
 
     List<AccessLog> getAccessLog(@Param("ipAddresses") List<String> ipAddresses);
 }

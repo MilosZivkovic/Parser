@@ -37,7 +37,7 @@
     </changeSet>
 
     <changeSet id="createRestrictedTable" author="Milos Zivkovic">
-        <createTable tableName="restricted">
+        <createTable tableName="access_restricted">
             <column name="id" type="INT" autoIncrement="true">
                 <constraints nullable="false" primaryKey="true" />
             </column>
@@ -54,7 +54,7 @@
     </changeSet>
 
     <changeSet id="createRestrictedIpAddressIndex" author="Milos Zivkovic">
-        <createIndex tableName="restricted"
+        <createIndex tableName="access_restricted"
                      indexName="restricted_ip_address_index"
                      unique="true">
             <column name="ipAddress" />

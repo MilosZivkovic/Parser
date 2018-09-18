@@ -23,10 +23,10 @@
         HAVING occ > #{data.threshold}
     </select>
 
-    <insert id="restrictIpAddresses" parameterType="java.util.List">
-        REPLACE INTO restricted (ipAddress, restricted, cause)
+    <insert id="restrictIpAddresses" parameterType="com.ef.model.AccessIp">
+        REPLACE INTO access_restricted (ipAddress, restricted, cause)
         VALUES
-        <foreach collection="ips" item="ip" index="index" open="(" separator="),(" close=")">
+        <foreach collection="accessIps" item="ip" index="index" open="(" separator="),(" close=")">
             #{ip.ipAddress}, #{ip.restricted}, #{ip.cause}
         </foreach>
     </insert>

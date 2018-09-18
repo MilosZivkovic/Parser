@@ -34,7 +34,7 @@ public class ApplicationConfiguration {
     @Bean
     @Profile("!test")
     @Order(2)
-    public RestrictAccessProcessor restrictAccessService(RestrictAccessService restrictAccessService, CliArguments cliArguments) {
+    public RestrictAccessProcessor restrictAccessProcessor(RestrictAccessService restrictAccessService, CliArguments cliArguments) {
         return new RestrictAccessProcessor(restrictAccessService, cliArguments);
     }
 
