@@ -21,8 +21,7 @@ public class CsvFileServiceTest extends AbstractApplicationTest {
 
     @Test
     public void processFileTest() {
-        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-        String path = Objects.requireNonNull(classLoader.getResource(REQUESTS_LOG_FILE)).getPath();
+        String path = getResource(REQUESTS_LOG_FILE);
         csvFileService.processFile(path);
         List<String> ips = getInsertedIpAddresses();
         List<AccessLog> accessLogs = accessLogRepository.getAccessLog(ips);
@@ -30,5 +29,11 @@ public class CsvFileServiceTest extends AbstractApplicationTest {
             .map(AccessLog::getIpAddress)
             .collect(Collectors.toList())
             .containsAll(ips));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void fileNotFoundTest() {
+        String fakePath = "data/fake.log";
+        csvFileService.processFile(fakePath);
     }
 }

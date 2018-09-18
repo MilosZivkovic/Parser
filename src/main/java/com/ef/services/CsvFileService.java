@@ -27,7 +27,7 @@ public class CsvFileService {
 
     public void processFile(String filePath) {
         if(!isValidFile(filePath)) {
-            return;
+            throw new IllegalArgumentException("Could not process file: " + filePath);
         }
 
         try (Stream<String> lines = Files.lines(Paths.get(filePath))) {

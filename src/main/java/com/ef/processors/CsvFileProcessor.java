@@ -29,11 +29,15 @@ public class CsvFileProcessor implements CommandLineRunner {
         else {
             log.info("Processing File: " + filePath);
         }
-        long startTime = System.nanoTime();
 
-        csvFileService.processFile(filePath);
-
-        long seconds = TimeUnit.NANOSECONDS.toSeconds(System.nanoTime() - startTime);
-        log.info("Finished processing file in: " + seconds + " seconds");
+        try {
+            long startTime = System.nanoTime();
+            csvFileService.processFile(filePath);
+            long seconds = TimeUnit.NANOSECONDS.toSeconds(System.nanoTime() - startTime);
+            log.info("Finished processing file in: " + seconds + " seconds");
+        }
+        catch (IllegalArgumentException e) {
+            log.error("Could not process file: " + filePath);
+        }
     }
 }

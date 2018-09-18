@@ -17,6 +17,7 @@ import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -37,6 +38,11 @@ public abstract class AbstractApplicationTest {
         URL path = classLoader.getResource(REQUESTS_LOG_FILE);
         File file = new File(path.getPath());
         Assert.assertTrue(file.exists());
+    }
+
+    protected String getResource(String resourceName) {
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        return Objects.requireNonNull(classLoader.getResource(resourceName)).getPath();
     }
 
     protected List<String> getInsertedIpAddresses() {
