@@ -33,11 +33,21 @@ public abstract class AbstractApplicationTest {
     private CsvFileService csvFileService;
 
     @Test
-    public void testFileExist() {
-        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-        URL path = classLoader.getResource(REQUESTS_LOG_FILE);
-        File file = new File(path.getPath());
+    public void testRequestLogFile() {
+        testResourceFileExists(REQUESTS_LOG_FILE);
+    }
+
+    @Test
+    public void testAccessLogFIleExist() {
+        testResourceFileExists(ACCESS_LOG_FILE);
+    }
+
+    private void testResourceFileExists(String fileName) {
+        String path = getResource(fileName);
+        File file = new File(path);
         Assert.assertTrue(file.exists());
+        Assert.assertTrue(file.canRead());
+        Assert.assertTrue(file.isFile());
     }
 
     protected String getResource(String resourceName) {
