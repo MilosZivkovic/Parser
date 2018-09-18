@@ -1,6 +1,5 @@
 package com.ef.model;
 
-import com.ef.properties.CliProperties;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.AllArgsConstructor;

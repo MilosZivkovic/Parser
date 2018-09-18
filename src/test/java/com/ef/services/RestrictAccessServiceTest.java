@@ -24,7 +24,7 @@ public class RestrictAccessServiceTest extends AbstractApplicationTest {
     @Before
     public void setUp() {
         requestLogFile = Paths.get(getResource(AbstractApplicationTest.REQUESTS_LOG_FILE));
-        requestLogFile = Paths.get(getResource(AbstractApplicationTest.ACCESS_LOG_FILE));
+        accessLogFile = Paths.get(getResource(AbstractApplicationTest.ACCESS_LOG_FILE));
     }
 
     @Autowired

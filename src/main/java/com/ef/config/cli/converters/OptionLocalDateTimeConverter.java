@@ -1,7 +1,6 @@
 package com.ef.config.cli.converters;
 
 import com.beust.jcommander.IStringConverter;
-import com.ef.properties.CliProperties;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

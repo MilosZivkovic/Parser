@@ -62,19 +62,25 @@ Options are key value pairs separated by space:
  
  ### Examples
  
-example without accesslog:
+Example without accesslog:
 
 ```
 java -jar target/parser.jar -startDate=2017-01-01.00:00:00 --duration=daily --threshold=500
 ```
 
-example with accesslog:
+Example with accesslog:
 
 ```
 java -jar target/parser.jar -startDate=2017-01-01.15:00:00 --duration=hourly --threshold=200 -accesslog=data/access.log
 ```
 
 *note: accesslog will be processed first in order to populate the database for search*
+
+Example with -cp parameter:
+
+```
+java -cp target/parser.jar -startDate=2017-01-01.00:00:00 --duration=daily --threshold=200 -accesslog=data/access.log
+```
 
 ## Util
 Data folder contains utility files that can help with app development:
