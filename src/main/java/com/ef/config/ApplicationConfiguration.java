@@ -18,24 +18,16 @@ public class ApplicationConfiguration {
 
     @Bean
     @Profile("!test")
-    public CliArguments cliArguments(ApplicationArguments applicationArguments) {
-        CliArguments arguments = new CliArguments();
-        JCommander.newBuilder().addObject(arguments).build().parse(applicationArguments.getSourceArgs());
-        return arguments;
-    }
-
-    @Bean
-    @Profile("!test")
     @Order(1)
     public CsvFileProcessor csvFileProcessor(CsvFileService csvFileService, CliArguments cliArguments) {
-        return new CsvFileProcessor(csvFileService, cliArguments);
+        return new CsvFileProcessor(csvFileService);
     }
 
     @Bean
     @Profile("!test")
     @Order(2)
     public RestrictAccessProcessor restrictAccessProcessor(RestrictAccessService restrictAccessService, CliArguments cliArguments) {
-        return new RestrictAccessProcessor(restrictAccessService, cliArguments);
+        return new RestrictAccessProcessor(restrictAccessService);
     }
 
     @Bean

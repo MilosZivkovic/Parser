@@ -1,5 +1,6 @@
 package com.ef.processors;
 
+import com.beust.jcommander.JCommander;
 import com.ef.model.RestrictedIp;
 import com.ef.properties.CliArguments;
 import com.ef.services.RestrictAccessService;
@@ -13,15 +14,14 @@ public class RestrictAccessProcessor implements CommandLineRunner {
 
     private RestrictAccessService restrictAccessService;
 
-    private CliArguments arguments;
-
-    public RestrictAccessProcessor(RestrictAccessService restrictAccessService, CliArguments arguments) {
+    public RestrictAccessProcessor(RestrictAccessService restrictAccessService) {
         this.restrictAccessService = restrictAccessService;
-        this.arguments = arguments;
     }
 
     @Override
     public void run(String... args) throws Exception {
+        CliArguments arguments = new CliArguments();
+        JCommander.newBuilder().addObject(arguments).build().parse(args);
         List<RestrictedIp> restrictedIps = restrictAccessService
             .restrictIpAddresses(arguments.getStartDate(), arguments.getDuration(), arguments.getThreshold());
         restrictedIps.forEach(restrictedIp -> log.info("Found possible DDOS attempt, ip address: " + restrictedIp.getIpAddress()));

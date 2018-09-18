@@ -46,6 +46,18 @@ public class RestrictAccessServiceTest extends AbstractApplicationTest {
     }
 
     @Test
+    public void noRestrictedIpsTest() {
+        String path = getResource(AbstractApplicationTest.REQUESTS_LOG_FILE);
+        csvFileService.processFile(path);
+
+        LocalDateTime startDate = LocalDateTime.of(2022, 6, 1, 15, 32, 12);
+        RestrictData.Duration duration = RestrictData.Duration.DAILY;
+        int threshold = 500;
+        List<RestrictedIp> restrictedIps = restrictAccessService.restrictIpAddresses(startDate, duration, threshold);
+        assertTrue(restrictedIps.isEmpty());
+    }
+
+    @Test
     public void restrictIpAddressesTestCase1() {
         LocalDateTime startDate = LocalDateTime.of(2017, 1, 1, 0, 0, 0);
         RestrictData.Duration duration = RestrictData.Duration.DAILY;

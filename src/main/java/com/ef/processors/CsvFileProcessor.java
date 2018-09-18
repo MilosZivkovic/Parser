@@ -1,5 +1,6 @@
 package com.ef.processors;
 
+import com.beust.jcommander.JCommander;
 import com.ef.properties.CliArguments;
 import com.ef.services.CsvFileService;
 import lombok.extern.slf4j.Slf4j;
@@ -12,15 +13,14 @@ public class CsvFileProcessor implements CommandLineRunner {
 
     private CsvFileService csvFileService;
 
-    private CliArguments arguments;
-
-    public CsvFileProcessor(CsvFileService csvFileService, CliArguments arguments) {
+    public CsvFileProcessor(CsvFileService csvFileService) {
         this.csvFileService = csvFileService;
-        this.arguments = arguments;
     }
 
     @Override
     public void run(String... args) throws Exception {
+        CliArguments arguments = new CliArguments();
+        JCommander.newBuilder().addObject(arguments).build().parse(args);
         String filePath = arguments.getFilePath();
         if (filePath == null) {
             log.info("Skipping file processing");
