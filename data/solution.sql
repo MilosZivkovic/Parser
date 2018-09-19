@@ -7,4 +7,4 @@ HAVING COUNT(*) > 100
 -- Find all requests made by given ip address
 SELECT *
 FROM access_log
-WHERE ipAddress LIKE "192.168.0.1"
+WHERE ipAddress LIKE "192.168.234.82"
