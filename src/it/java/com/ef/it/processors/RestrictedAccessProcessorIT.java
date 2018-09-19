@@ -58,7 +58,7 @@ public class RestrictedAccessProcessorIT extends AbstractE2ETest {
     @Test
     public void testHourlyThreshold() {
         String startDate = "2017-01-01.15:00:00";
-        RestrictData.Duration duration = RestrictData.Duration.DAILY;
+        RestrictData.Duration duration = RestrictData.Duration.HOURLY;
         int threshold = 200;
 
         RestrictData restrictData = buildRestrictData(startDate, duration, threshold);
