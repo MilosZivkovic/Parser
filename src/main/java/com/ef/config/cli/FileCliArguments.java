@@ -12,7 +12,7 @@ import java.util.Optional;
 @Data
 @Parameters(separators = "=")
 public class FileCliArguments {
-    @Parameter(names = "--accesslog", description = "Path to the access log file to be proccessed")
+    @Parameter(names = "--accesslog", description = "Path to the access log file to be processed")
     private String filePath;
 
     public Optional<Path> file() {

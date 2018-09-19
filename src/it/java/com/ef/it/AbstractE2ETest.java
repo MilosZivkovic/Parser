@@ -25,7 +25,7 @@ import java.util.Objects;
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public abstract class AbstractE2ETest {
 
-    public static final String ACCESS_LOG_FILE = "data/access.log";
+    protected static final String ACCESS_LOG_FILE = "data/access.log";
     protected static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd.HH:mm:ss");
     protected static final String IP_ADDRESS_DAILY = "192.168.102.136";
     protected static final String IP_ADDRESS_HOURLY = "192.168.11.231";

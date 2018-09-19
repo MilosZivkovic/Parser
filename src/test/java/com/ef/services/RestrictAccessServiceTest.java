@@ -15,7 +15,8 @@ import static org.junit.Assert.assertTrue;
 
 public class RestrictAccessServiceTest extends AbstractApplicationTest {
 
-    public static final String IP_ADDRESS = "192.168.234.82";
+    private static final String IP_ADDRESS = "192.168.234.82";
+
     @Autowired
     private CsvFileService csvFileService;
     private Path requestLogFile;

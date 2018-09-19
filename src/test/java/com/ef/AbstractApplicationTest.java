@@ -1,11 +1,9 @@
 package com.ef;
 
 import com.ef.config.ApplicationConfiguration;
-import com.ef.services.CsvFileService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,17 +24,11 @@ import static org.junit.Assert.assertTrue;
 @Import(ApplicationConfiguration.class)
 public abstract class AbstractApplicationTest {
 
-    protected static final String ACCESS_LOG_FILE = "data/access.log";
     protected static final String REQUESTS_LOG_FILE = "data/requests.log";
 
     @Test
     public void testRequestLogFile() {
         testResourceFileExists(REQUESTS_LOG_FILE);
-    }
-
-    @Test
-    public void testAccessLogFIleExist() {
-        testResourceFileExists(ACCESS_LOG_FILE);
     }
 
     private void testResourceFileExists(String fileName) {
