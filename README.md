@@ -31,6 +31,7 @@ Options are key value pairs separated by space:
     Type: DateTime  
     Format: yyyy-MM-dd.HH:mm:ss  
     Required: true  
+    Example: --startDate=2017-01-01.00:00:00  
  
     start date of the database search. Must be provided in yyyy.MM.dd.HH:mm:ss format
   
@@ -39,15 +40,18 @@ Options are key value pairs separated by space:
     Type: Enum  
     Format: Hourly | Daily  
     Required: true  
+    Example: --duration=daily  
  
     Duration determines range that will be searched in database. Duration can have two values HOURLY or DAILY.
-    HOURLY will add one hour to the startDate argument while DAILY will add one day to startDate.
+    Hourly will define time range of one hour from startDate argument while Daily will define range of 
+    one day from startDate argument. 
   
  - #### Threshold  
     Argument: threshold  
     Type: int  
     format: number  
     Required: true  
+    Example: --threshold=500  
  
     number of the requests in given range that will trigger restriction.
   
@@ -56,6 +60,7 @@ Options are key value pairs separated by space:
     Type: file  
     Format: String  
     Required: false  
+    Example: --accesslog=data/access.log  
  
     Location of the log file that will be parsed and inserted into the database. Log File must be a csv file following format:  
     date (yyyy-MM-dd HH:mm:ss.SSS) | ip address | http method | http response | http client
@@ -82,6 +87,25 @@ Example with -cp parameter:
 java -cp target/parser.jar com.ef.Parser --startDate=2017-01-01.00:00:00 --duration=daily --threshold=200 --accesslog=data/access.log
 ```
 
+ ### Running Tests
+
+#### Unit Tests
+Unit tests are located inside _src/test_ directory. Tests are automatically run during package and install phase. 
+If you need to manually run just unit tests you can do so by executing:
+```
+mvn test
+``` 
+
+#### Integration Tests
+Additionally project has integration tests tests inside _src/it_ directory. These tests are also executed during 
+package and install phase but are run in a separate integration-test phase. These tests need to be suffixed with _IT_ 
+(ie. CsvFileProcessorIT.java). These tests do not fail the build of the application and can be manually run with command:
+```
+mvn verify
+```
+
+_note: This will also trigger Unit Tests_
+
 ## Util
 Data folder contains utility files that can help with app development:
 
@@ -96,3 +120,4 @@ Data folder contains utility files that can help with app development:
  - Project Reactor - Reactive streams
  - Liquibase - Database versioning
  - JCommander - for parsing cli arguments
+ - Maven - for packaging and testing application
