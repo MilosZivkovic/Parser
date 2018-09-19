@@ -17,7 +17,7 @@
         SELECT ipAddress
         FROM access_log
          <![CDATA[
-        WHERE (accessTime > #{data.startDate}) AND accessTime < #{data.endDate}
+        WHERE accessTime > #{data.startDate} AND accessTime < #{data.endDate}
         ]]>
         GROUP BY ipAddress
         HAVING COUNT(*) > #{data.threshold}
