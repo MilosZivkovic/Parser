@@ -24,14 +24,17 @@ public class RestrictAccessProcessor implements CommandLineRunner {
             RestrictionCliArguments arguments = parseArguments(args);
             List<String> restrictedIps = restrictAccessService
                 .restrictIpAddresses(arguments.getStartDate(), arguments.getDuration(), arguments.getThreshold());
+
             if (!restrictedIps.isEmpty()) {
                 log.info("Found possible DDOS attempts: ");
                 restrictedIps.forEach(restrictedIp -> log.info("ip address: " + restrictedIp));
             }
         } catch (ParameterException e) {
+            log.error("Could not process arguments: " + e.getMessage());
+
             StringBuilder builder = new StringBuilder();
             e.getJCommander().usage(builder);
-            log.error("Missing arguments. Please see usage:" + builder.toString());
+            log.error("Please see usage:" + builder.toString());
         }
     }
 
