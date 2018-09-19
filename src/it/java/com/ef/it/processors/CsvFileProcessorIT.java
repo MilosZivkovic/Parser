@@ -1,6 +1,6 @@
-package com.ef.e2e.processors;
+package com.ef.it.processors;
 
-import com.ef.e2e.AbstractE2ETest;
+import com.ef.it.AbstractE2ETest;
 import com.ef.model.AccessLog;
 import com.ef.processors.CsvFileProcessor;
 import com.ef.repository.AccessLogRepository;

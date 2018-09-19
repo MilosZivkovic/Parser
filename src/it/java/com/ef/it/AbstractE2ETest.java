@@ -1,4 +1,4 @@
-package com.ef.e2e;
+package com.ef.it;
 
 import com.ef.config.ApplicationConfiguration;
 import com.ef.model.RestrictData;
