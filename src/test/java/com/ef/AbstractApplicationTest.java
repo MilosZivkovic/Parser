@@ -29,9 +29,6 @@ public abstract class AbstractApplicationTest {
     protected static final String ACCESS_LOG_FILE = "data/access.log";
     protected static final String REQUESTS_LOG_FILE = "data/requests.log";
 
-    @Autowired
-    private CsvFileService csvFileService;
-
     @Test
     public void testRequestLogFile() {
         testResourceFileExists(REQUESTS_LOG_FILE);
