@@ -8,7 +8,7 @@ import java.nio.file.Paths;
 import java.util.Optional;
 
 public class FileCliArguments {
-    @Parameter(names = "--accesslog", required = true, description = "Path to the access log file to be proccessed")
+    @Parameter(names = "--accesslog", description = "Path to the access log file to be proccessed")
     private String filePath;
 
     public Optional<Path> file() {
