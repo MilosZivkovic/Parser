@@ -1,7 +1,8 @@
 package com.ef.processors;
 
 import com.beust.jcommander.JCommander;
-import com.ef.config.cli.CliArguments;
+import com.beust.jcommander.ParameterException;
+import com.ef.config.cli.FileCliArguments;
 import com.ef.services.CsvFileService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
@@ -20,10 +21,15 @@ public class CsvFileProcessor implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        CliArguments arguments = getArguments(args);
-        if (arguments.file().isPresent())
-        {
-            processFile(arguments.file().get());
+        try {
+            FileCliArguments arguments = getArguments(args);
+            if (arguments.file().isPresent()) {
+                processFile(arguments.file().get());
+            }
+        } catch (ParameterException e) {
+            StringBuilder builder = new StringBuilder();
+            e.getJCommander().usage(builder);
+            log.error(builder.toString());
         }
     }
 
@@ -39,9 +45,11 @@ public class CsvFileProcessor implements CommandLineRunner {
         }
     }
 
-    private CliArguments getArguments(String[] args) {
-        CliArguments arguments = new CliArguments();
-        JCommander.newBuilder().addObject(arguments).build().parse(args);
+    private FileCliArguments getArguments(String[] args) {
+        FileCliArguments arguments = new FileCliArguments();
+        JCommander.newBuilder()
+            .addObject(arguments)
+            .build().parse(args);
         return arguments;
     }
 }
