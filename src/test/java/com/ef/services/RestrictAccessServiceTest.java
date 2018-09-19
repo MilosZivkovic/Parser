@@ -19,12 +19,10 @@ public class RestrictAccessServiceTest extends AbstractApplicationTest {
     @Autowired
     private CsvFileService csvFileService;
     private Path requestLogFile;
-    private Path accessLogFile;
 
     @Before
     public void setUp() {
         requestLogFile = Paths.get(getResource(AbstractApplicationTest.REQUESTS_LOG_FILE));
-        accessLogFile = Paths.get(getResource(AbstractApplicationTest.ACCESS_LOG_FILE));
     }
 
     @Autowired
@@ -49,26 +47,6 @@ public class RestrictAccessServiceTest extends AbstractApplicationTest {
         int threshold = 500;
         List<String> restrictedIps = restrictAccessService.restrictIpAddresses(startDate, duration, threshold);
         assertTrue(restrictedIps.isEmpty());
-    }
-
-    @Test
-    public void restrictIpAddressesTestCase1() {
-        csvFileService.processFile(accessLogFile);
-
-        LocalDateTime startDate = LocalDateTime.of(2017, 1, 1, 0, 0, 0);
-        RestrictData.Duration duration = RestrictData.Duration.DAILY;
-        int threshold = 500;
-        testRestrictedIpAddresses("192.168.102.136", startDate, duration, threshold);
-    }
-
-    @Test
-    public void restrictIpAddressesTestCase2() {
-        csvFileService.processFile(accessLogFile);
-
-        LocalDateTime startDate = LocalDateTime.of(2017, 1, 1, 15, 0, 0);
-        RestrictData.Duration duration = RestrictData.Duration.HOURLY;
-        int threshold = 200;
-        testRestrictedIpAddresses("192.168.11.231", startDate, duration, threshold);
     }
 
     private void testRestrictedIpAddresses(String expectedIpAddress, LocalDateTime startDate, RestrictData.Duration duration,
