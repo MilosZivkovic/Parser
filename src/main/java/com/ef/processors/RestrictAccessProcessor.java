@@ -42,6 +42,7 @@ public class RestrictAccessProcessor implements CommandLineRunner {
         RestrictionCliArguments arguments = new RestrictionCliArguments();
         JCommander.newBuilder()
             .addObject(arguments)
+            .acceptUnknownOptions(true)
             .build().parse(args);
         return arguments;
     }

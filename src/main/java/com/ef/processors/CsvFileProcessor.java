@@ -42,6 +42,7 @@ public class CsvFileProcessor implements CommandLineRunner {
         FileCliArguments arguments = new FileCliArguments();
         JCommander.newBuilder()
             .addObject(arguments)
+            .acceptUnknownOptions(true)
             .build().parse(args);
         return arguments;
     }

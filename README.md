@@ -97,9 +97,8 @@ mvn test
 ``` 
 
 #### Integration Tests
-Additionally project has integration tests tests inside _src/it_ directory. These tests are also executed during 
-package and install phase but are run in a separate integration-test phase. These tests need to be suffixed with _IT_ 
-(ie. CsvFileProcessorIT.java). These tests do not fail the build of the application and can be manually run with command:
+Integration tests are found in _src/it_ directory suffixed with _IT.java_. These tests will not be run during package 
+but will be run during install phase of maven lifecycle, tests can also be run manually with the following command:
 ```
 mvn verify
 ```
@@ -112,6 +111,7 @@ Data folder contains utility files that can help with app development:
  - **access.log** - example log file that has proper format required by the app
  - **docker-database.sh** - executable shell script that will bootstrap mysql:8.0 server with proper database and database access
  - **test-instructions.txt** - original instructions for the project
+ - **solution.sql** - Solution of the sql questions. These scripts can also be found in src/main/resources/com/ef/repository/AccessLogRepository.xml
 
 ## Technologies
  
