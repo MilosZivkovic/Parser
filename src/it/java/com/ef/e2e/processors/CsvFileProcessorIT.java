@@ -24,17 +24,19 @@ public class CsvFileProcessorIT extends AbstractE2ETest {
     @Autowired
     private AccessLogRepository accessLogRepository;
 
+    private CsvFileProcessor csvFileProcessor;
+
     private Path accessFile;
 
     @Before
     public void setUp() {
-        accessFile = Paths.get(getResource("data/access.log"));
+        accessFile = Paths.get(getResource(ACCESS_LOG_FILE));
+        csvFileProcessor = new CsvFileProcessor(csvFileService);
     }
 
     @Test
     public void csvFileProcessorTest() {
         String argument = "--accesslog=" + accessFile.toString();
-        CsvFileProcessor csvFileProcessor = new CsvFileProcessor(csvFileService);
         csvFileProcessor.run(argument);
 
         List<String> ipAddresses = getIpAddresses();

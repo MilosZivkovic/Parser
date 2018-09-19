@@ -33,7 +33,7 @@ public class RestrictedAccessProcessorIT extends AbstractE2ETest {
 
     @Before
     public void setUp() throws Exception {
-        Path accessFile = Paths.get(getResource("data/access.log"));
+        Path accessFile = Paths.get(getResource(ACCESS_LOG_FILE));
         CsvFileProcessor csvFileProcessor = new CsvFileProcessor(csvFileService);
         csvFileProcessor.run("--accesslog=" + accessFile.toString());
 
